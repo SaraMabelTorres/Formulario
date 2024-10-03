@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Cliente - Farmacia Esencia Saludable</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom right, #e0f7fa, #f0f8ff);
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #1c4b82;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #1c4b82;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        input.is-invalid,
+        select.is-invalid {
+            border-color: #dc3545;
+        }
+
+        input.is-valid,
+        select.is-valid {
+            border-color: #28a745;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #1c4b82;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #163c67;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 15px;
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        #datosCliente {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #datosCliente h2 {
+            font-size: 1.8rem;
+            color: #1c4b82;
+        }
+
+        #datosCliente ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #datosCliente ul li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        #datosCliente ul li strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registro de Cliente</h1>
+        <form id="registroForm" class="form" novalidate>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Nombre Completo:</label>
+                <input type="text" id="fullName" name="fullName" class="form-control" required aria-label="Nombre Completo">
+                <div class="error-message" id="nameError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="dob" class="form-label">Fecha de Nacimiento:</label>
+                <input type="date" id="dob" name="dob" class="form-control" required aria-label="Fecha de Nacimiento">
+                <div class="error-message" id="dobError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Género:</label>
+                <select id="gender" name="gender" class="form-select" required aria-label="Género">
+                    <option value="">Seleccione su género</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    <option value="other">Otro</option>
+                </select>
+                <div class="error-message" id="genderError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" class="form-control" required aria-label="Correo Electrónico">
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Teléfono:</label>
+                <input type="tel" id="phone" name="phone" class="form-control" required aria-label="Teléfono">
+                <div class="error-message" id="phoneError"></div>
+            </div>
+            <button type="submit" class="submit-btn">Registrar</button>
+        </form>
+
+        <div id="datosCliente">
+            <h2>Datos Registrados:</h2>
+            <ul>
+                <li><strong>Nombre Completo:</strong> <span id="mostrarNombre"></span></li>
+                <li><strong>Fecha de Nacimiento:</strong> <span id="mostrarDob"></span></li>
+                <li><strong>Género:</strong> <span id="mostrarGenero"></span></li>
+                <li><strong>Email:</strong> <span id="mostrarEmail"></span></li>
+                <li><strong>Teléfono:</strong> <span id="mostrarTelefono"></span></li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="btn btn-secondary mt-3">Inicio</a>
+        <a href="proveedores.html" class="btn btn-secondary mt-3">Proveedores</a>
+        <a href="empleados.html" class="btn btn-secondary mt-3">Empleados</a>
+
+
+    </div>
+
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName');
+            const dob = document.getElementById('dob');
+            const gender = document.getElementById('gender');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            let isValid = true;
+
+            if (fullName.value.length < 3) {
+                document.getElementById('nameError').textContent = "El nombre debe tener al menos 3 caracteres.";
+                fullName.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                fullName.classList.remove('is-invalid');
+                fullName.classList.add('is-valid');
+            }
+
+            if (!dob.value || new Date(dob.value) > new Date()) {
+                document.getElementById('dobError').textContent = "Ingrese una fecha de nacimiento válida.";
+                dob.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                dob.classList.remove('is-invalid');
+                dob.classList.add('is-valid');
+            }
+
+            if (!gender.value) {
+                document.getElementById('genderError').textContent = "Seleccione su género.";
+                gender.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                gender.classList.remove('is-invalid');
+                gender.classList.add('is-valid');
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email.value)) {
+                document.getElementById('emailError').textContent = "Ingrese un correo electrónico válido.";
+                email.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                email.classList.remove('is-invalid');
+                email.classList.add('is-valid');
+            }
+
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone.value)) {
+                document.getElementById('phoneError').textContent = "Ingrese un número de teléfono válido (10 dígitos).";
+                phone.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                phone.classList.remove('is-invalid');
+                phone.classList.add('is-valid');
+            }
+
+            if (isValid) {
+                document.getElementById('mostrarNombre').textContent = fullName.value;
+                document.getElementById('mostrarDob').textContent = dob.value;
+                document.getElementById('mostrarGenero').textContent = gender.value;
+                document.getElementById('mostrarEmail').textContent = email.value;
+                document.getElementById('mostrarTelefono').textContent = phone.value;
+
+                document.getElementById('datosCliente').style.display = 'block';
+
+                document.getElementById('registroForm').reset();
+                document.querySelectorAll('.is-valid').forEach(el => el.classList.remove('is-valid'));
+            }
+        });
+    </script>
+</body>
+
+</html>

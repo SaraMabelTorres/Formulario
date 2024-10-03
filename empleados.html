@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Empleados - Farmacia Esencia Saludable</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom right, #e0f7fa, #f0f8ff);
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #1c4b82;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #1c4b82;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #1c4b82;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #163c67;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 15px;
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        #datosEmpleado {
+            display: none;
+        }
+
+        .list-group-item {
+            font-size: 16px;
+        }
+
+        .is-invalid {
+            border-color: #dc3545;
+        }
+
+        .is-valid {
+            border-color: #28a745;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registro de Empleados</h1>
+
+        <form id="formEmpleado" novalidate>
+            <div class="mb-3">
+                <label for="nombreEmpleado" class="form-label">Nombre del Empleado</label>
+                <input type="text" class="form-control" id="nombreEmpleado" required>
+                <div class="error-message" id="nombreError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="direccionEmpleado" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccionEmpleado" required>
+                <div class="error-message" id="direccionError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="telefonoEmpleado" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefonoEmpleado" required>
+                <div class="error-message" id="telefonoError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="emailEmpleado" class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailEmpleado" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="cargoEmpleado" class="form-label">Cargo</label>
+                <input type="text" class="form-control" id="cargoEmpleado" required>
+                <div class="error-message" id="cargoError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="horaEntrada" class="form-label">Hora de Entrada</label>
+                <input type="time" class="form-control" id="horaEntrada">
+                <div class="error-message" id="horaEntradaError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="horaSalida" class="form-label">Hora de Salida</label>
+                <input type="time" class="form-control" id="horaSalida">
+                <div class="error-message" id="horaSalidaError"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="salarioEmpleado" class="form-label">Salario</label>
+                <input type="number" class="form-control" id="salarioEmpleado" required>
+                <div class="error-message" id="salarioError"></div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="submit-btn">Registrar Empleado</button>
+            </div>
+        </form>
+
+        <div id="datosEmpleado" class="mt-4">
+            <h2>Datos del Empleado Registrado:</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nombre:</strong> <span id="mostrarNombreEmpleado"></span></li>
+                <li class="list-group-item"><strong>Dirección:</strong> <span id="mostrarDireccionEmpleado"></span></li>
+                <li class="list-group-item"><strong>Teléfono:</strong> <span id="mostrarTelefonoEmpleado"></span></li>
+                <li class="list-group-item"><strong>Email:</strong> <span id="mostrarEmailEmpleado"></span></li>
+                <li class="list-group-item"><strong>Cargo:</strong> <span id="mostrarCargoEmpleado"></span></li>
+                <li class="list-group-item"><strong>Hora de Entrada:</strong> <span id="mostrarHoraEntrada"></span></li>
+                <li class="list-group-item"><strong>Hora de Salida:</strong> <span id="mostrarHoraSalida"></span></li>
+                <li class="list-group-item"><strong>Salario:</strong> <span id="mostrarSalarioEmpleado"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn btn-secondary">Inicio</a>
+    <a href="proveedores.html" class="btn btn-secondary mt-3">Proveedores</a>
+    <a href="clientes.html" class="btn btn-secondary mt-3">Cliente</a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById('formEmpleado').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nombreEmpleado = document.getElementById('nombreEmpleado');
+            const direccionEmpleado = document.getElementById('direccionEmpleado');
+            const telefonoEmpleado = document.getElementById('telefonoEmpleado');
+            const emailEmpleado = document.getElementById('emailEmpleado');
+            const cargoEmpleado = document.getElementById('cargoEmpleado');
+            const horaEntrada = document.getElementById('horaEntrada');
+            const horaSalida = document.getElementById('horaSalida');
+            const salarioEmpleado = document.getElementById('salarioEmpleado');
+
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            let isValid = true;
+
+            if (nombreEmpleado.value.length < 3 || /\d/.test(nombreEmpleado.value)) {
+                document.getElementById('nombreError').textContent = "El nombre debe tener al menos 3 letras y no debe contener números.";
+                nombreEmpleado.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                nombreEmpleado.classList.remove('is-invalid');
+                nombreEmpleado.classList.add('is-valid');
+            }
+
+            if (!/^\d{10}$/.test(telefonoEmpleado.value)) {
+                document.getElementById('telefonoError').textContent = "Ingrese un número de teléfono válido de 10 dígitos.";
+                telefonoEmpleado.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                telefonoEmpleado.classList.remove('is-invalid');
+                telefonoEmpleado.classList.add('is-valid');
+            }
+
+            const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (!emailPattern.test(emailEmpleado.value)) {
+                document.getElementById('emailError').textContent = "Ingrese un correo electrónico válido.";
+                emailEmpleado.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                emailEmpleado.classList.remove('is-invalid');
+                emailEmpleado.classList.add('is-valid');
+            }
+
+            if (cargoEmpleado.value.length < 3 || /\d/.test(cargoEmpleado.value)) {
+                document.getElementById('cargoError').textContent = "El cargo debe tener al menos 3 letras y no debe contener números.";
+                cargoEmpleado.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                cargoEmpleado.classList.remove('is-invalid');
+                cargoEmpleado.classList.add('is-valid');
+            }
+
+            if (salarioEmpleado.value <= 0) {
+                document.getElementById('salarioError').textContent = "Ingrese un salario válido mayor a cero.";
+                salarioEmpleado.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                salarioEmpleado.classList.remove('is-invalid');
+                salarioEmpleado.classList.add('is-valid');
+            }
+
+            if (horaEntrada.value && horaSalida.value && horaSalida.value <= horaEntrada.value) {
+                document.getElementById('horaSalidaError').textContent = "La hora de salida debe ser mayor a la de entrada.";
+                horaSalida.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                horaSalida.classList.remove('is-invalid');
+                horaSalida.classList.add('is-valid');
+            }
+
+            if (isValid) {
+                document.getElementById('mostrarNombreEmpleado').textContent = nombreEmpleado.value;
+                document.getElementById('mostrarDireccionEmpleado').textContent = direccionEmpleado.value;
+                document.getElementById('mostrarTelefonoEmpleado').textContent = telefonoEmpleado.value;
+                document.getElementById('mostrarEmailEmpleado').textContent = emailEmpleado.value;
+                document.getElementById('mostrarCargoEmpleado').textContent = cargoEmpleado.value;
+                document.getElementById('mostrarHoraEntrada').textContent = horaEntrada.value || 'No especificado';
+                document.getElementById('mostrarHoraSalida').textContent = horaSalida.value || 'No especificado';
+                document.getElementById('mostrarSalarioEmpleado').textContent = salarioEmpleado.value;
+
+                document.getElementById('datosEmpleado').style.display = 'block';
+                document.getElementById('formEmpleado').reset();
+                document.querySelectorAll('.is-valid').forEach(el => el.classList.remove('is-valid'));
+            }
+        });
+    </script>
+</body>
+
+</html>
